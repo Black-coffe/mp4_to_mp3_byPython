@@ -1,0 +1,17 @@
+import os
+from moviepy.editor import VideoFileClip
+
+def extract_audio(video_name, bitrate="192k"):
+    base_path = os.path.dirname(os.path.realpath(__file__))
+    video_path = os.path.join(base_path, 'video', video_name + '.mp4')
+    audio_path = os.path.join(base_path, 'audio', video_name + '.mp3')
+
+    if not os.path.exists(os.path.join(base_path, 'audio')):
+        os.makedirs(os.path.join(base_path, 'audio'))
+
+    video = VideoFileClip(video_path)
+    audio = video.audio
+
+    audio.write_audiofile(audio_path, bitrate=bitrate)
+
+extract_audio('call', bitrate="128k")
